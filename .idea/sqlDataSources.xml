@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="d0c6d3ae-1ad1-4e13-bc9c-d8f6f5548923" name="tastily@localhost Mapping">
+      <data-sources db="15c2468f-7cdb-4a84-8ed0-7b96c3a64738" ddl="5396ed9c-6d51-441b-bc30-9a554ce026c7" />
+      <scope>
+        <node kind="database" negative="1" />
+      </scope>
+    </mapping>
+  </component>
+</project>
