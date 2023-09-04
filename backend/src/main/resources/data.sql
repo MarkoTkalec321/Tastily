@@ -1,0 +1,1 @@
+/*insert into test(id, authority_name) values ( 1, 'ROLE_ADMIN' );*/
