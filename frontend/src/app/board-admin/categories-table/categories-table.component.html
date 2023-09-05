@@ -1,0 +1,79 @@
+<div class="header-title">
+  <h1>All Categories</h1>
+  <button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<!-- Categories Table -->
+<mat-table [dataSource]="dataSource" class="users-group">
+
+  <!-- Category ID Column -->
+  <ng-container matColumnDef="categoryId">
+    <mat-header-cell *matHeaderCellDef>Category ID</mat-header-cell>
+    <mat-cell *matCellDef="let category">{{ category.id }}</mat-cell>
+  </ng-container>
+
+  <!-- Category Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let category">
+      <ng-container *ngIf="currentlyEditing !== category.id; else editName">
+        {{ category.name }}
+      </ng-container>
+      <ng-template #editName>
+        <input [(ngModel)]="editedCategory.name">
+      </ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Category Description Column -->
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+    <mat-cell *matCellDef="let category">
+      <ng-container *ngIf="currentlyEditing !== category.id; else editDescription">
+        {{ category.description }}
+      </ng-container>
+      <ng-template #editDescription>
+        <input [(ngModel)]="editedCategory.description">
+      </ng-template>
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Update Column -->
+  <ng-container matColumnDef="update">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let category">
+      <ng-container *ngIf="currentlyEditing !== category.id">
+        <button mat-icon-button color="accent" (click)="updateCategory(category.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="currentlyEditing === category.id">
+        <button mat-icon-button color="primary" (click)="saveChanges(category.id)">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button (click)="currentlyEditing = null">
+          <mat-icon>close</mat-icon>
+        </button>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Delete Column -->
+  <ng-container matColumnDef="delete">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let category">
+      <button mat-icon-button color="warn" (click)="deleteCategory(category.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+
+

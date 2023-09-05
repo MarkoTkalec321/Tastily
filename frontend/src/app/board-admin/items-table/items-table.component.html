@@ -1,0 +1,139 @@
+<div class="header-title">
+  <h1>All Items</h1>
+  <button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<!-- Items Table -->
+<mat-table [dataSource]="dataSource" class="users-group">
+
+  <!-- Item ID Column -->
+  <ng-container matColumnDef="categoryId">
+    <mat-header-cell *matHeaderCellDef>Item ID</mat-header-cell>
+    <mat-cell *matCellDef="let item">{{ item.id }}</mat-cell>
+  </ng-container>
+
+  <!-- Item Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let item">
+      <ng-container *ngIf="currentlyEditing !== item.id; else editName">
+        {{ item.name }}
+      </ng-container>
+      <ng-template #editName>
+        <input [(ngModel)]="editedItem.name">
+      </ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Item Image Column -->
+  <ng-container matColumnDef="image">
+    <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+    <mat-cell *matCellDef="let item">
+      <ng-container *ngIf="currentlyEditing !== item.id; else editImage">
+        <img class="card-img-top" [src]="'data:' + item.imageMimeType + ';base64,' + item.image" alt="Image not found">
+      </ng-container>
+      <ng-template #editImage>
+        <!-- Image preview if available -->
+        <img *ngIf="editedItem?.image" class="item-image" [src]="'data:' + editedItem.imageMimeType + ';base64,' + editedItem.image" alt="Image not found">
+
+        <!-- Image picker -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Upload Item Picture</mat-label>
+          <input matInput placeholder="No file chosen" readonly [value]="fileName">
+          <button mat-icon-button matSuffix (click)="fileInput.click()">
+            <mat-icon>attach_file</mat-icon>
+          </button>
+        </mat-form-field>
+        <!-- Hidden file input for actual file selection -->
+        <input #fileInput type="file" style="display:none" (change)="onFileChange($event, item)">
+      </ng-template>
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Item Description Column -->
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+
+    <mat-cell *matCellDef="let item">
+      <ng-container *ngIf="currentlyEditing !== item.id; else editDescription">
+        {{ item.description }}
+      </ng-container>
+      <ng-template #editDescription>
+        <input [(ngModel)]="editedItem.description">
+      </ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Item Category Column -->
+  <ng-container matColumnDef="category">
+    <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+    <mat-cell *matCellDef="let item">{{ getCategoryNameById(item.category_id) }}</mat-cell>
+  </ng-container>
+
+  <!-- Item Price Column -->
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+    <mat-cell *matCellDef="let item">
+      <ng-container *ngIf="currentlyEditing !== item.id; else editPrice">
+        {{ item.price }}
+      </ng-container>
+      <ng-template #editPrice>
+        <input [formControl]="getPriceControl()">
+        <span *ngIf="form.controls['price'].invalid && form.controls['price'].dirty" style="color: red;">Please enter a valid price</span>
+      </ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Item Discount Column -->
+  <ng-container matColumnDef="discount">
+    <mat-header-cell *matHeaderCellDef>Discount</mat-header-cell>
+    <mat-cell *matCellDef="let item">
+      <ng-container *ngIf="currentlyEditing !== item.id; else editDiscount">
+        {{ item.discount }}%
+      </ng-container>
+      <ng-template #editDiscount>
+        <input [formControl]="getDiscountControl()">
+        <span *ngIf="form.controls['discount'].invalid && form.controls['discount'].dirty" style="color: red;">Please enter a valid discount</span>
+      </ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Update Column -->
+  <ng-container matColumnDef="update">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let category">
+      <ng-container *ngIf="currentlyEditing !== category.id">
+        <button mat-icon-button color="accent" (click)="updateItem(category.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="currentlyEditing === category.id">
+        <button mat-icon-button color="primary" (click)="saveChanges(category.id)">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button (click)="currentlyEditing = null">
+          <mat-icon>close</mat-icon>
+        </button>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Delete Column -->
+  <ng-container matColumnDef="delete">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let category">
+      <button mat-icon-button color="warn" (click)="deleteItem(category.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+
+

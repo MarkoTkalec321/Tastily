@@ -1,0 +1,39 @@
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.header-title {
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-button {
+  background-color: #F5F5F5 !important;
+}
+
+form {
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  flex-direction: column;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}

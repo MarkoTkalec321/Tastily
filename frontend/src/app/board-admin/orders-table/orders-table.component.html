@@ -1,0 +1,98 @@
+<div class="header-title">
+  <h1>All Orders</h1>
+  <button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<!-- Orders Table -->
+<mat-table [dataSource]="dataSource" class="users-group">
+
+  <!-- Order ID Column -->
+  <ng-container matColumnDef="orderId">
+    <mat-header-cell *matHeaderCellDef>Order ID</mat-header-cell>
+    <mat-cell *matCellDef="let order">{{ order.id }}</mat-cell>
+  </ng-container>
+
+  <!-- User ID Column -->
+  <ng-container matColumnDef="userId">
+    <mat-header-cell *matHeaderCellDef>User ID</mat-header-cell>
+    <mat-cell *matCellDef="let order">{{ order.user_id }}</mat-cell>
+  </ng-container>
+
+  <!-- User Name Column -->
+  <ng-container matColumnDef="username">
+    <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{ user.username }}</mat-cell>
+  </ng-container>
+
+  <!-- User Email Column -->
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
+  </ng-container>
+
+  <!-- Item Name Column -->
+  <ng-container matColumnDef="itemName">
+    <mat-header-cell *matHeaderCellDef>Item name</mat-header-cell>
+    <mat-cell *matCellDef="let item">{{ item.name }}</mat-cell>
+  </ng-container>
+
+  <!-- Quantity Column -->
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+    <mat-cell *matCellDef="let order">{{ order.cartItems.quantity }}</mat-cell>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+    <mat-cell *matCellDef="let order">{{ order.cartItems.item.price }}</mat-cell>
+  </ng-container>
+
+  <!-- Delivery Status Column -->
+  <ng-container matColumnDef="deliveryStatus">
+    <mat-header-cell *matHeaderCellDef>Delivery Status</mat-header-cell>
+    <mat-cell *matCellDef="let orderStatus">{{ orderStatus.status_value }}</mat-cell>
+  </ng-container>
+
+  <!-- Update Column -->
+  <ng-container matColumnDef="update">
+    <mat-header-cell *matHeaderCellDef>Set Delivery Status</mat-header-cell>
+    <mat-cell *matCellDef="let order">
+      <ng-container *ngIf="currentlyEditing !== order.id">
+        <button mat-icon-button color="accent" (click)="updateOrderStatus(order.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="currentlyEditing === order.id">
+
+        <mat-select [(ngModel)]="editedOrder.status">
+          <mat-option *ngFor="let statusObj of orderStatuses" [value]="statusObj">
+            {{ statusObj.status_value }}
+          </mat-option>
+        </mat-select>
+
+        <button mat-icon-button color="primary" (click)="saveChanges(order.id)">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button (click)="currentlyEditing = null">
+          <mat-icon>close</mat-icon>
+        </button>
+
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Delete Column -->
+  <ng-container matColumnDef="delete">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let order">
+      <button mat-icon-button color="warn" (click)="deleteOrder(order.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

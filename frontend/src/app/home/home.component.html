@@ -1,0 +1,52 @@
+<div class="home-content">
+  <div class="container-fluid home-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul class="nav">
+        <li  *ngFor="let category of categories">
+          <button class="nav-link category-button"
+                  [ngClass]="{'selected-category': selectedCategoryId === category.id}"
+                  (click)="getItemsFromCategory(category.id)">{{ category.name }}
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="items-container">
+      <h1 class="category-title" *ngIf="selectedCategoryName">{{ selectedCategoryName }}</h1>
+      <!-- Message if no items available -->
+      <div *ngIf="noItems" class="no-items-message">
+        <p>No items available in this category.</p>
+      </div>
+
+      <!-- Items display -->
+      <div *ngIf="!noItems">
+        <div class="flex-container">
+          <div *ngFor="let item of items" (click)="showModal(item)">
+            <div class="framed-card">
+              <img class="card-img-top" [src]="'data:' + item.imageMimeType + ';base64,' + item.image" alt="Image not found">
+              <div class="card-body">
+                <h5>{{ item.name }}</h5>
+                <!-- Show truncated description -->
+                <p>{{ item.description | truncate:36 }}</p>
+                <div class="price-details">
+                  <p>
+                    <span class="current-price">€{{ item.price | discountedPrice:item.discount | number: '1.2-2' }}</span>
+                    <span class="right-aligned-prices">
+                      <span class="old-price" *ngIf="item.discount > 0">€{{ item.price | number: '1.2-2' }}</span>
+                      <span class="discount" *ngIf="item.discount > 0">{{ item.discount }}% OFF</span>
+                    </span>
+                  </p>
+                </div>
+                <button class="btn btn-primary add-to-cart-button" (click)="$event.stopPropagation(); addToCart(item)">Add To Cart</button>
+              </div>
+            </div>
+            <app-item-modal *ngIf="selectedItem" [item]="selectedItem"></app-item-modal>
+          </div>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

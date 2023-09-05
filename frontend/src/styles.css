@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto,
+  "Helvetica Neue", sans-serif;
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.header-title {
+  background-color: #F5F5F5;
+  padding: 30px;
+}
+
+.users-group {
+  width: 100%;
+  height: 600px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.users-group::-webkit-scrollbar {
+  width: 10px;
+}
+
+.users-group::-webkit-scrollbar-track {
+  background: rgba(122, 122, 122, 0);
+}
+
+.users-group::-webkit-scrollbar-thumb {
+  background: #B2B2B2;
+  border-radius: 10px;
+}

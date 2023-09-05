@@ -1,0 +1,28 @@
+<div class="header-title">
+  <h1>Fill category details.</h1>
+  <button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div class="wrapper">
+  <form [formGroup]="form">
+    <!-- Category Name Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Enter Category Name</mat-label>
+      <input matInput formControlName="name" placeholder="Category Name">
+      <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required.</mat-error>
+      <mat-error *ngIf="form.get('name')?.hasError('nameExists')">This category name already exists.</mat-error>
+    </mat-form-field>
+
+    <!-- Category Description Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Enter Category Description</mat-label>
+      <textarea matInput formControlName="description" placeholder="Category Description" rows="4"></textarea>
+      <mat-error *ngIf="form.get('description')?.hasError('required')">Description is required.</mat-error>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button type="submit" class="submit-button" [disabled]="!form.valid" (click)="onSubmit()">Submit</button>
+    </div>
+  </form>
+</div>

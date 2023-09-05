@@ -1,0 +1,97 @@
+<div *ngIf="displayItems.length > 0">
+  <div class="table-container">
+    <div class="table-actions">
+      <div>
+        <input type="checkbox" checked (change)="selectAll($event)" /> Select All
+      </div>
+      <div>
+        <button (click)="deleteSelectedItems()" class="btn btn-primary">Delete Selected</button>
+      </div>
+    </div>
+    <mat-table [dataSource]="displayItems" class="cart-table">
+      <!-- Select Column -->
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let cartItem"><input type="checkbox" [(ngModel)]="cartItem.details.selected" /></mat-cell>
+      </ng-container>
+
+      <!-- Image Column -->
+      <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+        <mat-cell *matCellDef="let cartItem"><img class="item-image" [src]="'data:' + cartItem.item.imageMimeType + ';base64,' + cartItem.item.image" alt="Item image"></mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let cartItem">{{ cartItem.item.name }}</mat-cell>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+        <mat-cell *matCellDef="let cartItem">{{ cartItem.item.price * (1 - cartItem.item.discount / 100) | currency:'EUR' }}</mat-cell>
+      </ng-container>
+
+      <!-- Quantity Column -->
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let cartItem">
+          <div class="quantity-container">
+            <button class="decrement-button" (click)="decrementQuantity(cartItem.details)">
+              <i class="fa fa-minus"></i>
+            </button>
+            <span class="quantity-text">{{ cartItem.details.quantity }}</span>
+            <button class="increment-button" (click)="incrementQuantity(cartItem.details)">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Subtotal Column -->
+      <ng-container matColumnDef="subtotal">
+        <mat-header-cell *matHeaderCellDef>Subtotal</mat-header-cell>
+        <mat-cell *matCellDef="let cartItem">{{ (cartItem.item.price * (1 - cartItem.item.discount / 100)) * cartItem.details.quantity | currency:'EUR' }}</mat-cell>
+      </ng-container>
+
+      <!-- Delete Button Column -->
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let cartItem">
+          <button class="delete-button" (click)="deleteItem(cartItem.details)">
+            <i class="fa fa-trash delete-icon"></i>
+          </button></mat-cell>
+      </ng-container>
+
+      <!-- Total -->
+      <ng-container matColumnDef="total">
+        <mat-footer-cell *matFooterCellDef="let cartItem">
+          <div class="total-container">
+            <span class="total-label">Total:</span>
+            <span class="total-value">{{ getSubtotal() | currency:'EUR' }}</span>
+          </div>
+        </mat-footer-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-footer-row *matFooterRowDef="['total']"></mat-footer-row>
+    </mat-table>
+  </div>
+
+  <div class="button-container">
+    <button (click)="goBack()" class="btn btn-secondary">Go Back</button>
+    <button (click)="checkout()" class="btn btn-primary" [disabled]="!hasSelectedItems()">Order</button>
+  </div>
+</div>
+<div *ngIf="displayItems.length === 0" class="text-center">
+  <p>Add an Item to the cart</p>
+  <a class="button-home" href="/home">Go Back</a>
+</div>
+<div class="spinner-overlay" *ngIf="isLoading">
+  <mat-spinner color="primary"></mat-spinner>
+  <p>Booking order...</p>
+</div>
+
+

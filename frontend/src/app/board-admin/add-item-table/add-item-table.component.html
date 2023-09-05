@@ -1,0 +1,65 @@
+<div class="header-title">
+  <h1>Fill item details.</h1>
+  <button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div class="wrapper">
+  <form [formGroup]="form">
+    <!-- Item Name Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Enter Item Name</mat-label>
+      <input matInput formControlName="name" placeholder="Item Name">
+      <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required.</mat-error>
+      <mat-error *ngIf="form.get('name')?.hasError('nameExists')">This item name already exists.</mat-error>
+    </mat-form-field>
+
+    <!-- Item Description Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Enter Item Description</mat-label>
+      <textarea matInput formControlName="description" placeholder="Item Description" rows="4"></textarea>
+      <mat-error *ngIf="form.get('description')?.hasError('required')">Description is required.</mat-error>
+    </mat-form-field>
+
+    <!-- Item Price Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Enter Item Price</mat-label>
+      <input matInput formControlName="price" placeholder="Item Price">
+      <mat-error *ngIf="form.get('price')?.hasError('required')">Price is required.</mat-error>
+    </mat-form-field>
+
+    <!-- Item Discount Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Enter Item Discount</mat-label>
+      <input matInput formControlName="discount" placeholder="Item Discount">
+      <mat-error *ngIf="form.get('discount')?.hasError('required')">Discount is required.</mat-error>
+    </mat-form-field>
+
+
+    <!-- Select Category Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Select Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('category')?.hasError('required')">Category is required.</mat-error>
+    </mat-form-field>
+
+    <!-- Upload Item Image -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Upload Item Picture</mat-label>
+      <input matInput placeholder="No file chosen" readonly [value]="fileName">
+      <button mat-icon-button matSuffix (click)="fileInput.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+      <mat-error *ngIf="form.get('image')?.hasError('required')">Picture is required.</mat-error>
+    </mat-form-field>
+
+    <!-- Hidden actual file input -->
+    <input type="file" #fileInput (change)="onFileChanged($event)" formControlName="image" style="display: none;">
+
+    <div class="button-container">
+      <button mat-raised-button type="submit" class="submit-button" [disabled]="!form.valid" (click)="onSubmit()">Submit</button>
+    </div>
+  </form>
+</div>

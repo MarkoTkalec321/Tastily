@@ -1,0 +1,20 @@
+<div class="modal-background" *ngIf="isVisible" (click)="hideModal($event)" >
+  <div class="framed-card long-version" (click)="$event.stopPropagation();">
+    <img class="card-img-top" [src]="'data:' + item.imageMimeType + ';base64,' + item.image" alt="Image not found">
+    <div class="card-body">
+      <h5>{{ item.name }}</h5>
+      <!-- Show full description -->
+      <p>{{ item.description }}</p>
+      <div class="price-details">
+        <p>
+          <span class="current-price">€{{ item.price | discountedPrice:item.discount | number: '1.2-2' }}</span>
+          <span class="right-aligned-prices">
+            <span class="old-price" *ngIf="item.discount > 0">€{{ item.price | number: '1.2-2' }}</span>
+            <span class="discount" *ngIf="item.discount > 0">{{ item.discount }}% OFF</span>
+          </span>
+        </p>
+      </div>
+      <button class="btn btn-primary add-to-cart-button" (click)="addToCartFromModal(item)">Add To Cart</button>
+    </div>
+  </div>
+</div>

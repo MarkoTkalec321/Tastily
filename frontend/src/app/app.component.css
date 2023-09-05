@@ -1,0 +1,107 @@
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  display: flex;
+}
+
+.center-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar {
+  background-color: #15161C;
+  padding: 30px;
+  margin-bottom: 50px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-collapse {
+  display: flex;
+}
+
+.navbar-nav.ms-auto {
+  flex: 0 0 15%;
+}
+
+.navbar-nav li {
+  margin-right: 15px;
+}
+.navbar-nav li:last-child {
+  margin-right: 0;
+}
+
+.navbar a:hover .icon-text {
+  box-shadow: 0px 1px 0px 0px white;
+}
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(to right, #ff0019, #15161C);
+}
+
+.icon-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-text i {
+  margin-bottom: 5px;
+}
+
+.app-footer {
+  background-color: #15161C;
+  padding: 20px;
+  position: relative;
+  margin-top: 50px;
+}
+
+.app-footer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(to right, #ff0019, #15161C);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links li a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-links li a:hover {
+  text-decoration: underline;
+}

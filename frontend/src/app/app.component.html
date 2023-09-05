@@ -1,0 +1,102 @@
+<div id="app">
+  <nav class="navbar navbar-expand-lg">
+    <a href="#" class="navbar-brand">
+      <div class="icon-text">
+        <i class="fas fa-utensils"></i>
+        Tastily
+      </div>
+    </a>
+    <div class="navbar-collapse">
+
+      <ul class="navbar-nav test" routerLinkActive="active">
+        <li class="nav-item">
+          <a href="/home" class="nav-link" routerLink="home">
+            <div class="icon-text">
+              <i class="fas fa-home"></i>
+              Home
+            </div>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a href="/tracker" class="nav-link" routerLink="tracker">
+            <div class="icon-text">
+              <i class="fas fa-map-marker-alt"></i>
+              Tracker
+            </div>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="showAdminBoard">
+          <a href="/admin" class="nav-link" routerLink="admin">
+            <div class="icon-text">
+              <i class="fas fa-user-cog"></i>
+              Admin Board
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="/cart" class="nav-link" routerLink="cart">
+            <div class="icon-text">
+              <i class="fas fa-shopping-cart"></i>
+              My Cart
+            </div>
+          </a>
+        </li>
+        <ng-container *ngIf="isLoggedIn">
+          <li class="nav-item">
+            <a href="/profile" class="nav-link" routerLink="profile">
+              <div class="icon-text">
+                <i class="fas fa-user"></i>
+                My Profile
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" (click)="logout()">
+              <div class="icon-text">
+                <i class="fas fa-sign-out-alt"></i>
+                Sign out
+              </div>
+            </a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="!isLoggedIn">
+          <li class="nav-item">
+            <a href="/register" class="nav-link" routerLink="register">
+              <div class="icon-text">
+                <i class="fas fa-user-plus"></i>
+                Sign Up
+              </div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/login" class="nav-link" routerLink="login">
+              <div class="icon-text">
+                <i class="fas fa-sign-in-alt"></i>
+                Sign in
+              </div>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </nav>
+
+  <main [class.center-content]="!isHomePage">
+    <router-outlet></router-outlet>
+  </main>
+
+
+  <footer class="app-footer">
+    <div class="footer-content">
+      <p>&copy; 2023 Tastily. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>

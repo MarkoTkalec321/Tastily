@@ -1,0 +1,11 @@
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.item-image {
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+}

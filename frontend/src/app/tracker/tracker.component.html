@@ -1,0 +1,50 @@
+<div class="flex-wrapper">
+<div class="map-container" id="map" style="width: 800px; height: 400px;"></div>
+<div *ngIf="hasOnTheWayOrders(); else noOrders" class="estimated-time">
+  {{ estimatedTravelTime  }}
+</div>
+<ng-template #noOrders>
+  <div class="estimated-time">No items are on the way</div>
+</ng-template>
+
+<div *ngIf="hasOnTheWayOrders()" class="orders-container">
+  <h2>Orders on the way</h2>
+  <mat-table [dataSource]="filteredOrders" matSort class="orders-table order-group">
+
+    <!-- Order ID Column -->
+    <ng-container matColumnDef="orderId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Order ID</mat-header-cell>
+      <mat-cell *matCellDef="let flatOrder">{{ flatOrder.orderId }}</mat-cell>
+    </ng-container>
+
+    <!-- Image Column -->
+    <ng-container matColumnDef="image">
+      <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+      <mat-cell *matCellDef="let flatOrder">
+        <img class="item-image" [src]="'data:' + flatOrder.image.imageMimeType + ';base64,' + flatOrder.image" alt="Item image">
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let flatOrder">{{ flatOrder.name }}</mat-cell>
+    </ng-container>
+
+    <!-- Quantity Column -->
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
+      <mat-cell *matCellDef="let flatOrder">{{ flatOrder.quantity }}</mat-cell>
+    </ng-container>
+
+    <!-- Order Status Column -->
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-cell *matCellDef="let flatOrder">{{ flatOrder.status  }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+</div>

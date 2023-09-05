@@ -1,0 +1,57 @@
+<div class="checkout-container">
+  <div class="thank-you-box">
+    <h1>Thank you!</h1>
+    <hr>
+    <p>Order ID: <span>{{ order_id }}</span></p>
+  </div>
+
+  <mat-table [dataSource]="checkoutItems" class="checkout-table">
+    <!-- Image Column -->
+    <ng-container matColumnDef="image">
+      <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+      <mat-cell *matCellDef="let item"><img class="item-image" [src]="'data:' + item.item.imageMimeType + ';base64,' + item.item.image" alt="Item image"></mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.item.name }}</mat-cell>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.item.price | currency:'EUR' }}</mat-cell>
+    </ng-container>
+
+    <!-- Quantity Column -->
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.details.quantity }}</mat-cell>
+    </ng-container>
+
+    <!-- Subtotal Column -->
+    <ng-container matColumnDef="subtotal">
+      <mat-header-cell *matHeaderCellDef>Subtotal</mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item.item.price * item.details.quantity | currency:'EUR' }}</mat-cell>
+    </ng-container>
+
+    <!-- Footer Total -->
+    <ng-container matColumnDef="total">
+      <mat-footer-cell *matFooterCellDef colspan="5">
+        <div class="total-container">
+          <span class="total-label">Total:</span>
+          <span class="total-value">{{ getTotal() | currency:'EUR' }}</span>
+        </div>
+      </mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row *matFooterRowDef="['total']"></mat-footer-row>
+  </mat-table>
+  <div class="button-container">
+    <button (click)="goBack()" class="btn btn-secondary go-back">Go Back</button>
+  </div>
+
+</div>
