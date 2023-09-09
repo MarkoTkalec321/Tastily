@@ -3,7 +3,10 @@ App for ordering and food delivery, my final project for my university
 ## Project Description
 Tastily is a full stack web application intended for users to buy items, order them and to display the fastest route to user's address with approximate time of delivery.
 ### Technologies
-This application is using PostgreSQL relational database for storing data, backend is written with Spring Boot in Java and frontend with Angular in typescript.
+- **PostgreSQL** relational database for storing data
+- Backend with **Spring Boot** in **Java**
+- Frontend with **Angular** in **TypeScript**
+- 
 ### API usage
 - Tracker tab with interactive map powered by [Leaflet](https://leafletjs.com/ "Leaflet")
 - Routing and approximate time calculated using [GraphHopper Directions API](https://www.graphhopper.com/ "GraphHopper Directions API")
