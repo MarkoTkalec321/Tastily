@@ -1,5 +1,6 @@
 # Tastily
 App for ordering and food delivery, my final project for my university
+PostgreSQL + Spring Boot Java + Angular TypeScript
 ## Project Description
 Tastily is a full stack web application intended for users to buy items, order them and to display the fastest route to user's address with approximate time of delivery.
 ### Technologies
