@@ -6,7 +6,7 @@ Tastily is a full stack web application intended for users to buy items, order t
 - **PostgreSQL** relational database for storing data
 - Backend with **Spring Boot** in **Java**
 - Frontend with **Angular** in **TypeScript**
-- 
+
 ### API usage
 - Tracker tab with interactive map powered by [Leaflet](https://leafletjs.com/ "Leaflet")
 - Routing and approximate time calculated using [GraphHopper Directions API](https://www.graphhopper.com/ "GraphHopper Directions API")
