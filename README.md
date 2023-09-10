@@ -28,6 +28,7 @@ Tastily is a full stack web application intended for users to buy items, order t
 - Admin Board tab appears to those with admin priviledges
 - Adding, editing and deleting categories and items as an admin
 - Changing order's status and a list of all users and their data
+- Most of the application's design is used from *@angular/material* library
 
 ## Demonstration
 
