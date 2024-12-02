@@ -14,26 +14,20 @@ import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
-
     private final CategoryRepository categoryRepository;
-
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
-
     @Override
     public List<CategoryDTO> findAll() {
         return categoryRepository.findAll().stream().map(this::mapCategoryToDTO).collect(Collectors.toList());
     }
-
     @Override
     public Boolean ifNameExists(String name) {
         return categoryRepository.findByName(name).isPresent();
     }
-
     @Override
     public Optional<CategoryDTO> saveCategory(final CategoryCommand categoryCommand) {
-
         Category savedCategory = categoryRepository.save(mapCommandToCategory(categoryCommand));
         return Optional.ofNullable(savedCategory).map(this::mapCategoryToDTO);
     }
