@@ -81,20 +81,17 @@ export class TrackerComponent implements AfterViewInit, OnInit {
   private initMap(): void {
     const defaultLat = 45.79548177393039;
     const defaultLng = 15.968990296928686;
-
     this.map = L.map('map', {
       center: [defaultLat, defaultLng],
       zoom: 16
     });
-
     // Add the tile layer to the map
-    const tiles = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+    const tiles = L.tileLayer(
+      'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors, © CartoDB'
     }).addTo(this.map);
-
     this.map.zoomControl.setPosition('bottomright');
     tiles.addTo(this.map);
-
     // Add the default marker to the map
     L.marker([defaultLat, defaultLng], {icon: this.blueIcon})
       .addTo(this.map)
@@ -119,11 +116,9 @@ export class TrackerComponent implements AfterViewInit, OnInit {
     const start = "45.79548177393039,15.968990296928686";
     const apiKey = '687db199-e852-456a-b8d9-f57d6d4044c3';
     const url = `https://graphhopper.com/api/1/route?point=${start}&point=${end}&vehicle=car&locale=de&key=${apiKey}&type=json`;
-
     this.http.get<any>(url).subscribe(response => {
       if (response.paths && response.paths.length > 0) {
         const path = response.paths[0];
-
         // Check if additionalMinutes is not in localStorage before calling calculateTime
         if (!localStorage.getItem('additionalMinutes')) {
           this.calculateTime(path.time);
@@ -132,7 +127,6 @@ export class TrackerComponent implements AfterViewInit, OnInit {
           const totalTravelTime = travelTimeMinutes + parseInt(localStorage.getItem('additionalMinutes')!);
           this.estimatedTravelTime = `Estimated delivery time: ${totalTravelTime} minutes`;
         }
-
         const coordinates = this.decodePath(path.points);
         const route = L.polyline(coordinates, {color: 'blue'}).addTo(this.map);
         this.map.fitBounds(route.getBounds());
@@ -143,15 +137,15 @@ export class TrackerComponent implements AfterViewInit, OnInit {
   }
 
   private calculateTime(travelTimeMilliseconds: number): void {
-    const travelTimeMinutes = Math.round(travelTimeMilliseconds / 60000); // Convert to minutes
-
+    // Convert to minutes
+    const travelTimeMinutes = Math.round(travelTimeMilliseconds / 60000);
     let additionalMinutes = localStorage.getItem('additionalMinutes');
     // If additionalMinutes doesn't exist in localStorage, generate and set it
     if (!additionalMinutes) {
-      additionalMinutes = (Math.floor(Math.random() * 6) + 15).toString(); // This generates a random number between 15 (inclusive) and 20 (inclusive)
+      // This generates a random number between 15 (inclusive) and 20 (inclusive)
+      additionalMinutes = (Math.floor(Math.random() * 6) + 15).toString();
       localStorage.setItem('additionalMinutes', additionalMinutes);
     }
-
     const totalTravelTime = travelTimeMinutes + parseInt(additionalMinutes);
     this.estimatedTravelTime = `Estimated delivery time: ${totalTravelTime} minutes`;
   }
