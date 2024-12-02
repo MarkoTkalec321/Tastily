@@ -3,27 +3,27 @@ Full-stack application for ordering and food delivery, my final project for my u
 
 ### Project Images
 
-![](github_images/1.png)
+![](backend/github_images/1.png)
 
-![](github_images/2.png)
+![](backend/github_images/2.png)
 
-![](github_images/3.png)
+![](backend/github_images/3.png)
 
-![](github_images/4.png)
+![](backend/github_images/4.png)
 
-![](github_images/5.png)
+![](backend/github_images/5.png)
 
-![](github_images/6.png)
+![](backend/github_images/6.png)
 
-![](github_images/7.png)
+![](backend/github_images/7.png)
 
-![](github_images/8.png)
+![](backend/github_images/8.png)
 
-![](github_images/9.png)
+![](backend/github_images/9.png)
 
-![](github_images/10.png)
+![](backend/github_images/10.png)
 
-![](github_images/11.png)
+![](backend/github_images/11.png)
 
 ## Project Description
 Tastily is a full stack web application intended for users to buy items, order them and to display the fastest route to user's address with approximate time of delivery.
