@@ -3,9 +3,9 @@ Full-stack application for ordering and food delivery, my final project for my u
 
 ### Project Images
 
-![](backend/github_images/1.png)
+![](github_images/1.png)
 
-![](backend/github_images/2.png)
+![](github_images/2.png)
 
 
 ## Project Description
